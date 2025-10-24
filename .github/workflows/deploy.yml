@@ -14,8 +14,13 @@ jobs:
         shell: powershell
     
     steps:
+    
     - name: Pull latest changes
       run: git pull origin main
+    
+    - name: Stop application
+      run: pm2 stop deployment
+      continue-on-error: true 
     
     - name: Install dependencies
       run: npm ci
