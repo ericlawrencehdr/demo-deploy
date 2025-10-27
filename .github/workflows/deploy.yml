@@ -14,7 +14,18 @@ jobs:
         shell: powershell
     
     steps:
-    
+    - name: Debug user and PM2 access
+      run: |
+        whoami
+        echo "---PM2 List---"
+        pm2 list
+        echo "---Node Processes---"
+        Get-Process -Name "node" -IncludeUserName -ErrorAction SilentlyContinue | Select-Object UserName, Id, ProcessName
+
+    - name: Stop PM2 app
+      run: pm2 stop deployment
+      continue-on-error: true
+
     - name: Pull latest changes
       run: git pull origin main
     
