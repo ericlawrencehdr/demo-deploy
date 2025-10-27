@@ -10,7 +10,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: D:\sites\demo-deploy  # Set this once
+        working-directory: D:\sites\demo-deploy
         shell: powershell
     
     steps:
@@ -19,7 +19,9 @@ jobs:
       run: git pull origin main
     
     - name: Stop application
-      run: pm2 stop deployment
+      run: |
+        pm2 stop deployment
+        Start-Sleep -Seconds 3
       continue-on-error: true 
     
     - name: Install dependencies
@@ -31,4 +33,9 @@ jobs:
         NODE_ENV: production
     
     - name: Restart application
-      run: pm2 restart deployment  # or your restart method
+      run: |
+        pm2 restart deployment
+        pm2 save
+    
+    - name: Show application status
+      run: pm2 list
