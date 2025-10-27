@@ -22,8 +22,12 @@ jobs:
     #     echo "---Node Processes---"
     #     Get-Process -Name "node" -IncludeUserName -ErrorAction SilentlyContinue | Select-Object UserName, Id, ProcessName
 
-    - name: Stop PM2 app
-      run: pm2 stop deployment
+    # - name: Stop PM2 app
+    #   run: pm2 stop deployment
+    #   continue-on-error: true
+
+    - name: Stop app via NSSM
+      run: nssm stop demo-deploy
       continue-on-error: true
 
     - name: Pull latest changes
@@ -32,11 +36,11 @@ jobs:
     # - name: Delete old build
     #   run: rm -Recurse -Force .next
     
-    - name: Stop application
-      run: |
-        pm2 stop deployment
-        Start-Sleep -Seconds 3
-      continue-on-error: true 
+    # - name: Stop application
+    #   run: |
+    #     pm2 stop deployment
+    #     Start-Sleep -Seconds 3
+    #   continue-on-error: true 
     
     - name: Install dependencies
       run: npm ci
@@ -45,11 +49,15 @@ jobs:
       run: npm run build
       env:
         NODE_ENV: production
-    
+
     - name: Restart application
       run: |
-        pm2 restart deployment
-        pm2 save
+        nssm start demo-deploy
+
+    # - name: Restart application
+      # run: |
+      #   pm2 restart deployment
+      #   pm2 save
     
-    - name: Show application status
-      run: pm2 list
+    # - name: Show application status
+    #   run: pm2 list
