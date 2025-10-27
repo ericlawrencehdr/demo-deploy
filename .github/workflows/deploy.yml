@@ -14,26 +14,26 @@ jobs:
         shell: powershell
     
     steps:
-    - name: Debug user and PM2 access
-      run: |
-        whoami
-        echo "---PM2 List---"
-        pm2 list
-        echo "---Node Processes---"
-        Get-Process -Name "node" -IncludeUserName -ErrorAction SilentlyContinue | Select-Object UserName, Id, ProcessName
+    # - name: Debug user and PM2 access
+    #   run: |
+    #     whoami
+    #     echo "---PM2 List---"
+    #     pm2 list
+    #     echo "---Node Processes---"
+    #     Get-Process -Name "node" -IncludeUserName -ErrorAction SilentlyContinue | Select-Object UserName, Id, ProcessName
 
-    - name: Stop PM2 app
-      run: pm2 stop deployment
-      continue-on-error: true
+    # - name: Stop PM2 app
+    #   run: pm2 stop deployment
+    #   continue-on-error: true
 
     - name: Pull latest changes
       run: git pull origin main
     
-    - name: Stop application
-      run: |
-        pm2 stop deployment
-        Start-Sleep -Seconds 3
-      continue-on-error: true 
+    # - name: Stop application
+    #   run: |
+    #     pm2 stop deployment
+    #     Start-Sleep -Seconds 3
+    #   continue-on-error: true 
     
     - name: Install dependencies
       run: npm ci
@@ -43,10 +43,10 @@ jobs:
       env:
         NODE_ENV: production
     
-    - name: Restart application
-      run: |
-        pm2 restart deployment
-        pm2 save
+    # - name: Restart application
+    #   run: |
+    #     pm2 restart deployment
+    #     pm2 save
     
-    - name: Show application status
-      run: pm2 list
+    # - name: Show application status
+    #   run: pm2 list
