@@ -29,6 +29,9 @@ jobs:
     - name: Pull latest changes
       run: git pull origin main
     
+    - name: Delete old build
+      run: rm -Recurse -Force .next
+    
     # - name: Stop application
     #   run: |
     #     pm2 stop deployment

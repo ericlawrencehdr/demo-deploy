@@ -6,7 +6,7 @@ export default function Home() {
           <span className="text-blue-600">Demo</span>
         </h1>
         <div className="pt-10">
-          <span className="text-zinc-700 text-8xl dark:text-zinc-300 font-extrabold">4.1</span>
+          <span className="text-zinc-700 text-8xl dark:text-zinc-300 font-extrabold">4.2</span>
         </div>
        
       </main>
