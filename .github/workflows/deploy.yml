@@ -26,8 +26,12 @@ jobs:
     #   run: pm2 stop deployment
     #   continue-on-error: true
 
-    - name: Stop app via NSSM
-      run: nssm stop demo-deploy
+    # - name: Stop app via NSSM
+    #   run: nssm stop demo-deploy
+    #   continue-on-error: true
+
+    - name: Request Server Stop
+      run: npm run server:stop
       continue-on-error: true
 
     - name: Pull latest changes
@@ -49,10 +53,13 @@ jobs:
       run: npm run build
       env:
         NODE_ENV: production
-
-    - name: Restart application
-      run: |
-        nssm start demo-deploy
+    
+    - name: Start application
+      run: npm run server:start
+      
+    # - name: Restart application
+    #   run: |
+    #     nssm start demo-deploy
 
     # - name: Restart application
       # run: |

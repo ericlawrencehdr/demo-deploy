@@ -6,6 +6,8 @@
     "dev": "next dev -p 6543",
     "build": "next build",
     "start": "next start -p 6543",
+    "server:stop": "pm2 stop demo-deploy || true",
+    "server:start": "pm2 start npm --name demo-deploy -- start",
     "lint": "eslint"
   },
   "dependencies": {
