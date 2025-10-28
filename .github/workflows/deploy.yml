@@ -26,20 +26,20 @@ jobs:
     #   run: pm2 stop deployment
     #   continue-on-error: true
 
-    # - name: Stop app via NSSM
-    #   run: nssm stop demo-deploy
-    #   continue-on-error: true
-
     - name: Stop app via NSSM
-      run: |
-        $serviceName = "demo-deploy"
-        try {
-            Stop-Service -Name $serviceName -Force -ErrorAction Stop
-            Write-Host "Service stopped successfully"
-        } catch {
-            Write-Host "Failed to stop service: $_"
-        }
+      run: nssm stop demo-deploy
       continue-on-error: true
+
+    # - name: Stop app via NSSM
+    #   run: |
+    #     $serviceName = "demo-deploy"
+    #     try {
+    #         Stop-Service -Name $serviceName -Force -ErrorAction Stop
+    #         Write-Host "Service stopped successfully"
+    #     } catch {
+    #         Write-Host "Failed to stop service: $_"
+    #     }
+    #   continue-on-error: true
 
 
     # - name: Request Server Stop
@@ -69,15 +69,15 @@ jobs:
     # - name: Start application
     #   run: npm run server:start
       
-    # - name: Restart application
-    #   run: |
-    #     nssm start demo-deploy
-    
     - name: Restart application
       run: |
-        $serviceName = "demo-deploy"
-        Start-Service -Name $serviceName
-        Write-Host "Service started successfully"
+        nssm start demo-deploy
+    
+    # - name: Restart application
+    #   run: |
+    #     $serviceName = "demo-deploy"
+    #     Start-Service -Name $serviceName
+    #     Write-Host "Service started successfully"
 
 
     # - name: Restart application
