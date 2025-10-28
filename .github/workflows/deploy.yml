@@ -26,8 +26,10 @@ jobs:
     #   run: pm2 stop deployment
     #   continue-on-error: true
 
-    - name: Stop app via NSSM
-      run: nssm stop demo-deploy
+    - name: Stop app via SC
+      run: |
+        sc.exe stop demo-deploy
+        Start-Sleep -Seconds 5
       continue-on-error: true
 
     # - name: Stop app via NSSM
@@ -69,9 +71,14 @@ jobs:
     # - name: Start application
     #   run: npm run server:start
       
+    # - name: Restart application
+    #   run: |
+    #     nssm start demo-deploy
+
     - name: Restart application
       run: |
-        nssm start demo-deploy
+        sc.exe start demo-deploy
+        Start-Sleep -Seconds 3
     
     # - name: Restart application
     #   run: |
